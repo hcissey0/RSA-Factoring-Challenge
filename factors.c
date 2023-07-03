@@ -15,7 +15,7 @@ pair *factorize(int n)
 	pair *factors = NULL;
 	int i;
 
-	for (i = 2; i <= sqrt(n); i++)
+	for (i = 2; i <= (int)sqrt((double)n); i++)
 	{
 		if (n % i == 0)
 		{
