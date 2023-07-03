@@ -10,12 +10,12 @@
  *
  * Return: the pair of factors or NULL
  */
-pair *factorize(int n)
+pair *factorize(unsigned long long int n)
 {
 	pair *factors = NULL;
-	int i;
+	unsigned long long int i;
 
-	for (i = 2; i <= (int)sqrt((double)n); i++)
+	for (i = 2; i <= (n / 2); i++)
 	{
 		if (n % i == 0)
 		{
@@ -41,7 +41,7 @@ int main(int argc, char **argv)
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t read;
-	int n = 0;
+	unsigned long long int n = 0;
 	pair *factors = NULL;
 
 	if (argc != 2)
@@ -59,11 +59,12 @@ int main(int argc, char **argv)
 
 	while ((read = getline(&line, &len, fp)) != -1)
 	{
-		n = atoi(line);
+		line[strcspn(line, "\n")] = '\0';
+		n = strtoull(line, NULL,10);
 		factors = factorize(n);
 		if (factors != NULL)
 		{
-			printf("%d=%d*%d\n", n, factors->y, factors->x);
+			printf("%llu=%llu*%llu\n", n, factors->y, factors->x);
 			free(factors);
 		}
 	}

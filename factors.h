@@ -8,8 +8,8 @@
  */
 typedef struct pair_s
 {
-	int x;
-	int y;
+	unsigned long long int x;
+	unsigned long long int y;
 } pair;
 
 #endif /* FACTORS_H */
