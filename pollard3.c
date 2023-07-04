@@ -25,11 +25,30 @@ int main(int argc, char **argv)
         mpz_set_str(n, line, 10);
         mpz_sqrt(sqrt_n, n);
 
-
-        for (mpz_set_ui(i, 2); mpz_cmp(i, sqrt_n) <= 0; mpz_add_ui(i, i, 1))
+        if (mpz_even_p(n))
         {
-            mpz_tdiv_r(rem, n, i);
-            if (mpz_cmp_ui(rem, 0) == 0)
+            mpz_tdiv_q_ui(n, n, 2);
+            gmp_printf("%Zd=%Zd*2\n", num, n);
+	    continue;
+        }
+
+        if (mpz_divisible_ui_p(n, 3))
+        {
+            mpz_tdiv_q_ui(n, n, 3);
+            gmp_printf("%Zd=%Zd*3\n", num, n);
+	    continue;
+        }
+
+        for (mpz_set_ui(i, 5); mpz_cmp(i, sqrt_n) <= 0; mpz_add_ui(i, i, 6))
+        {
+            if (mpz_divisible_p(n, i))
+            {
+                mpz_tdiv_q(n, n, i);
+                gmp_printf("%Zd=%Zd*%Zd\n", num, n, i);
+                break;
+            }
+            mpz_add_ui(i, i, 2);
+            if (mpz_divisible_p(n, i))
             {
                 mpz_tdiv_q(n, n, i);
                 gmp_printf("%Zd=%Zd*%Zd\n", num, n, i);
@@ -38,7 +57,7 @@ int main(int argc, char **argv)
         }
     }
 
-    mpz_clears(num, n, i, sqrt_n, rem, NULL);
+    mpz_clears(n, i, sqrt_n, rem, NULL);
     fclose(fp);
     return (0);
 }
