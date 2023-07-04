@@ -1,7 +1,7 @@
-#include <Python.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <gmp.h>
 #include <string.h>
 #include "factors.h"
 
@@ -11,12 +11,12 @@
  *
  * Return: the pair of factors or NULL
  */
-pair *factorize(PyObject *num)
+pair *factorize(unsigned long long int n)
 {
 	pair *factors = NULL;
-	Py_ssize_t i;
+	unsigned long long int i;
 
-	for (i = 2; i <= (n / 2); i++)
+	for (i = 2; i <= sqrt(n); i++)
 	{
 		if (n % i == 0)
 		{
