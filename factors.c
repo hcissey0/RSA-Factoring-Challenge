@@ -1,3 +1,4 @@
+#include <Python.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -10,10 +11,10 @@
  *
  * Return: the pair of factors or NULL
  */
-pair *factorize(unsigned long long int n)
+pair *factorize(PyObject *num)
 {
 	pair *factors = NULL;
-	unsigned long long int i;
+	Py_ssize_t i;
 
 	for (i = 2; i <= (n / 2); i++)
 	{
