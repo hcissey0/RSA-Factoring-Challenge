@@ -25,7 +25,15 @@ int main(int ac, char **av)
 		mpz_set_str(num, line, 10);
 		mpz_set_str(n, line, 10);
 		mpz_sqrt(sqrt_n, n);
-		for (mpz_set_ui(i, 2); mpz_cmp(i, sqrt_n) <= 0; mpz_add_ui(i, i, 1))
+
+		mpz_tdiv_r_ui(rem, n, 2);
+		if (mpz_cmp_ui(rem, 0) == 0)
+		{
+			mpz_tdiv_q_ui(n, n, 2);
+			gmp_printf("%Zd=%Zd*2\n", n, n);
+			continue;
+		}
+		for (mpz_set_ui(i, 3); mpz_cmp(i, sqrt_n) <= 0; mpz_add_ui(i, i, 2))
 		{
 			mpz_tdiv_r(rem, n, i);
 			if (mpz_cmp_ui(rem, 0) == 0)
