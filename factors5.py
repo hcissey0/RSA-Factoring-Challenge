@@ -6,8 +6,8 @@ def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
 # install("gmpy2")
-import gmpy2
-from gmpy2 import mpz, gcd
+import gmpy
+from gmpy import mpz, gcd
 
 
 def pollard_rho(n):
